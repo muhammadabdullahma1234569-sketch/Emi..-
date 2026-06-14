@@ -18,17 +18,20 @@
             background: var(--bg);
             color: var(--text);
             font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            height: 100vh;
+            /* Mobile scroll fix so text box doesn't cut */
+            overflow-x: hidden;
+            overflow-y: auto;
+            min-height: 100vh;
         }
 
         .container {
-            height: 100vh;
+            min-height: 100vh;
             width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
+            box-sizing: border-box;
         }
 
         .page {
@@ -37,53 +40,69 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            max-width: 800px;
-            padding: 40px;
-            animation: slideUp 0.8s ease-out;
+            width: 100%;
+            max-width: 450px; /* Perfect mobile screen width */
+            padding: 24px;
+            box-sizing: border-box;
+            animation: slideUp 0.6s ease-out;
         }
 
         .active { display: flex; }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--gold); margin: 0; }
-        h2 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 2rem; margin-bottom: 20px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); margin: 0; }
+        h2 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.6rem; margin-bottom: 15px; }
         
         .content-box {
             background: rgba(255,255,255,0.03);
             border-left: 2px solid var(--gold);
-            padding: 30px;
-            margin: 20px 0;
-            line-height: 1.8;
-            font-size: 1.1rem;
+            padding: 20px;
+            margin: 15px 0;
+            line-height: 1.6;
+            font-size: 0.95rem;
             text-align: left;
+            border-radius: 0 8px 8px 0;
+            width: 100%;
+            box-sizing: border-box;
+            word-wrap: break-word;
         }
 
         .btn {
             background: transparent;
             border: 1px solid var(--gold);
             color: var(--gold);
-            padding: 12px 40px;
+            padding: 12px 30px;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-top: 30px;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            font-size: 0.9rem;
             transition: 0.4s;
+            width: 80%; /* Tap-friendly mobile width */
+            max-width: 250px;
         }
 
-        .btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
+        .btn:hover, .btn:active { 
+            background: var(--gold); 
+            color: #000; 
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.4); 
+        }
 
         .progress-bar {
             position: fixed;
             top: 0; left: 0;
             height: 4px; background: var(--gold);
             transition: 0.5s;
+            z-index: 10;
         }
 
-        #typewriter { font-style: italic; color: var(--gold); min-height: 100px; }
+        #typewriter { font-style: italic; color: var(--gold); min-height: 120px; }
+        
+        p { font-size: 0.95rem; margin: 8px 0; }
     </style>
 </head>
 <body>
@@ -93,9 +112,9 @@
     <div class="container">
         
         <div id="page1" class="page active">
-            <p style="letter-spacing: 5px; color: #666;">Happy Birthday. Emii......!</p>
+            <p style="letter-spacing: 3px; color: #666; font-size: 0.8rem;">Happy Birthday. Emii......!</p>
             <h1>Emii....!</h1>
-            <p>Happy Birthday to the one who knows me inside out! 💖</p>
+            <p style="margin-top: 15px;">Happy Birthday to the one who knows me inside out! 💖</p>
             <button class="btn" onclick="showPage(2)">Let's Talk</button>
         </div>
 
@@ -121,7 +140,7 @@
 
         <div id="page4" class="page">
             <h2>Dua</h2>
-            <div class="content-box" style="text-align: center;">
+            <div class="content-box" style="text-align: center; border-left: none; border-bottom: 2px solid var(--gold); border-radius: 0 0 8px 8px;">
                 Allah ap naseeb m wo sab likh dy jo tumhary haq m behtarin ho......hamesha mery dukhon ko baanta hai aur mujhy sambhala hai....Allah Ap ko zindagi m kabhi koi gham na dikhay....
                 <br><br>
                 Allah ap ko wo har khushi dy......jis ky ap khwab dekhti hain......aur Ap ki zindagi ka har aany wala saal pichly saal sy behtar ho.... Ameen......... Have an amazing day! 🤲✨
@@ -132,7 +151,7 @@
         <div id="page5" class="page">
             <h2>The Best Listener's Day</h2>
             <div class="content-box" id="typewriter"></div>
-            <p style="margin-top: 20px;">— Zilla Here</p>
+            <p style="margin-top: 15px; font-weight: 500;">— Zilla Here</p>
             <button class="btn" onclick="location.reload()">Back to Start</button>
         </div>
 
@@ -140,19 +159,18 @@
 
     <script>
         function showPage(num) {
-            // Hide all pages
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            // Show target page
             document.getElementById('page' + num).classList.add('active');
-            // Update progress bar
             document.getElementById('bar').style.width = (num * 20) + '%';
+
+            // Auto-scroll to top when page switches on mobile
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
             if(num === 5) {
                 startTypewriter();
             }
         }
 
-        // Backticks (`) are used here to handle multi-line text correctly
         const letter = `Happy Birthday to my best listener in the world! 🎂✨
 Today, on your special day..... m bs Ap ka shukriya ada karna chahta hun...... Whenever I was down, Ap ny sirf meri baatyn suni nahi...... balky mujhy dil se samjha aur hamesha mujhy sambhalny ki koshish ki...... Seriously, a best friend like you is a pure blessing.....Wallah......
 
@@ -164,9 +182,9 @@ May you always stay miles away from any sadness, aur tumhari yeh pyari si smile 
         let isTyping = false;
 
         function startTypewriter() {
-            if (isTyping) return; // Prevent double typing if button clicked twice
+            if (isTyping) return;
             isTyping = true;
-            document.getElementById("typewriter").innerHTML = ""; // Clear existing text
+            document.getElementById("typewriter").innerHTML = "";
             type();
         }
 
@@ -174,7 +192,7 @@ May you always stay miles away from any sadness, aur tumhari yeh pyari si smile 
             if (i < letter.length) {
                 document.getElementById("typewriter").innerHTML += letter.charAt(i);
                 i++;
-                setTimeout(type, 30); // Speed set to 30ms for smoother reading
+                setTimeout(type, 25); // Slightly faster typing for mobile screens
             }
         }
     </script>
