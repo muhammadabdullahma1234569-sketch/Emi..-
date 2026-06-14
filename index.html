@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emi's Birthday</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;500&display=swap');
+
+        :root {
+            --gold: #c5a059;
+            --bg: #0d0d0d;
+            --text: #e0e0e0;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .container {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .page {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            max-width: 800px;
+            padding: 40px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .active { display: flex; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--gold); margin: 0; }
+        h2 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 2rem; margin-bottom: 20px; }
+        
+        .content-box {
+            background: rgba(255,255,255,0.03);
+            border-left: 2px solid var(--gold);
+            padding: 30px;
+            margin: 20px 0;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: left;
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 40px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 30px;
+            transition: 0.4s;
+        }
+
+        .btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
+
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 4px; background: var(--gold);
+            transition: 0.5s;
+        }
+
+        #typewriter { font-style: italic; color: var(--gold); min-height: 100px; }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="bar" style="width: 20%;"></div>
+
+    <div class="container">
+        
+        <div id="page1" class="page active">
+            <p style="letter-spacing: 5px; color: #666;">Happy Birthday. Emii......!</p>
+            <h1>Emii....!</h1>
+            <p>Happy Birthday to the one who knows me inside out! 💖</p>
+            <button class="btn" onclick="showPage(2)">Let's Talk</button>
+        </div>
+
+        <div id="page2" class="page">
+            <h2>Happy Birthday... Emiii.....!!</h2>
+            <div class="content-box">
+                Ap ny hamesha meri baatyn suni hain... mujhy samjha hai aur hamesha guide kiya hai.......Aj Ap k din par m ap liye dher saari duawaen mangta hun...... Allah ap k naseeb bohot aala kary... Ap ko har buri nazar sy bachay..... aur ap k chehry ki ye pyari c muskurahat hamesha qaim rakhy.
+                <br><br>
+                Zindagi k har mor par kamyabi Ap ka mukaddar bany...... Enjoy your day to the fullest....!
+            </div>
+            <button class="btn" onclick="showPage(3)">Next</button>
+        </div>
+
+        <div id="page3" class="page">
+            <h2>Constant supporter! 🎂✨</h2>
+            <div class="content-box">
+                Jab sab ny bas baatyn ki..... tab Ap ny mujhy suna.... mujhy samjha..... aur jab m khud ko nahi samajh paa raha tha..... tab ap ny koshish ki..... Mery har dukh ko apna samajhny k liye shukriya.....
+                <br><br>
+                Allah sy dua hai k ap ka naseeb itna khoobsurat ho jitna khoobsurat ap ka dil hai...... Tumhari zindagi ka har ik din khushiyon..... sukoon aur kamyabi sy bhara ho..... Khuda tumhyn har us dukh sy door rakhe jis ko ap bardasht na kar sako.....🌸❤️
+            </div>
+            <button class="btn" onclick="showPage(4)">Next</button>
+        </div>
+
+        <div id="page4" class="page">
+            <h2>Dua</h2>
+            <div class="content-box" style="text-align: center;">
+                Allah ap naseeb m wo sab likh dy jo tumhary haq m behtarin ho......hamesha mery dukhon ko baanta hai aur mujhy sambhala hai....Allah Ap ko zindagi m kabhi koi gham na dikhay....
+                <br><br>
+                Allah ap ko wo har khushi dy......jis ky ap khwab dekhti hain......aur Ap ki zindagi ka har aany wala saal pichly saal sy behtar ho.... Ameen......... Have an amazing day! 🤲✨
+            </div>
+            <button class="btn" onclick="showPage(5)">Next</button>
+        </div>
+
+        <div id="page5" class="page">
+            <h2>The Best Listener's Day</h2>
+            <div class="content-box" id="typewriter"></div>
+            <p style="margin-top: 20px;">— Zilla Here</p>
+            <button class="btn" onclick="location.reload()">Back to Start</button>
+        </div>
+
+    </div>
+
+    <script>
+        function showPage(num) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            // Show target page
+            document.getElementById('page' + num).classList.add('active');
+            // Update progress bar
+            document.getElementById('bar').style.width = (num * 20) + '%';
+
+            if(num === 5) {
+                startTypewriter();
+            }
+        }
+
+        // Backticks (`) are used here to handle multi-line text correctly
+        const letter = `Happy Birthday to my best listener in the world! 🎂✨
+Today, on your special day..... m bs Ap ka shukriya ada karna chahta hun...... Whenever I was down, Ap ny sirf meri baatyn suni nahi...... balky mujhy dil se samjha aur hamesha mujhy sambhalny ki koshish ki...... Seriously, a best friend like you is a pure blessing.....Wallah......
+
+My biggest prayer for you today is...... k Allah Ap ka naseeb itna aala aur khoobsurat kary jitna saaf aur pyara Ap ka dil hai...... May God bless you with every single happiness you’ve ever dreamed of..... Allah ap ko sukoon-e-dil ata farmay..... aur Ap ki life ko har tarah ki success dy..
+
+May you always stay miles away from any sadness, aur tumhari yeh pyari si smile hamesha qaim rahe. Happy Birthday, my partner in crime! Keep shining and always stay blessed! 🤲🌸💖`;
+
+        let i = 0;
+        let isTyping = false;
+
+        function startTypewriter() {
+            if (isTyping) return; // Prevent double typing if button clicked twice
+            isTyping = true;
+            document.getElementById("typewriter").innerHTML = ""; // Clear existing text
+            type();
+        }
+
+        function type() {
+            if (i < letter.length) {
+                document.getElementById("typewriter").innerHTML += letter.charAt(i);
+                i++;
+                setTimeout(type, 30); // Speed set to 30ms for smoother reading
+            }
+        }
+    </script>
+</body>
+</html>
